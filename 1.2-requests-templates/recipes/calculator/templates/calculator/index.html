@@ -5,6 +5,9 @@
     <title>Рецепты</title>
 </head>
 <body>
+<h1>Recipe</h1>
+<h2>{{ dish }}</h2>
+<p>Recipe for {{ servings }} servings</p>
 {% for ingredient, amount in recipe.items %}
     <p>{{ ingredient }}: {{ amount }}</p>
 {% empty %}
