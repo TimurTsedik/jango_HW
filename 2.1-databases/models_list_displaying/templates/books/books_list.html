@@ -16,10 +16,12 @@
             </div>
             {% endfor %}
         </div>
-        <!--{%if page.has_previous or page.has_next%}-->
-        <a href="?page={{page.previous_page_number}}">Назад</a>
-        <a href="?page={{page.next_page_number}}">Вперед</a>
-        <!--{%endif%}-->
+        {% if prev_page != '' %}
+        <a href="/books/{{prev_page}}">Назад</a>
+        {% endif %}
+        {% if next_page != '' %}
+        <a href="/books/{{next_page}}">Вперед</a>
+        {% endif %}
     </div>
 
 {% endblock %}

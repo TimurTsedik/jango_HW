@@ -19,13 +19,16 @@ def books_view(request):
             'book_pub_date': book.pub_date.strftime('%Y-%m-%d')
         })
     context = {
-        'books_list': books_list
+        'books_list': books_list,
+        'prev_page': '',
+        'next_page': ''
     }
     return render(request, template, context)
 
 def pub_date_view(request, pub_date):
     template = 'books/books_list.html'
-    book_objects = Book.objects.filter(pub_date=datetime.strptime(pub_date, '%Y-%m-%d'))
+    # book_objects = Book.objects.filter(pub_date=datetime.strptime(pub_date, '%Y-%m-%d'))
+    book_objects = Book.objects.order_by('pub_date')
     books_list = []
     for book in book_objects:
         books_list.append({
@@ -33,11 +36,22 @@ def pub_date_view(request, pub_date):
             'book_author': book.author,
             'book_pub_date': book.pub_date.strftime('%Y-%m-%d')
         })
-    paginator = Paginator(books_list, 1)
-    current_page = int(request.GET.get('page', 1))
-    page = paginator.get_page(current_page)
+    prev_page = ''
+    next_page = ''
+    for book in books_list:
+        if book['book_pub_date'] == pub_date:
+            book_for_show = {
+                'book_name': book['book_name'],
+                'book_author': book['book_author'],
+                'book_pub_date': book['book_pub_date']
+            }
+        elif book['book_pub_date'] < pub_date:
+            prev_page = book['book_pub_date']
+        elif book['book_pub_date'] > pub_date and next_page == '':
+            next_page = book['book_pub_date']
     context = {
-        'books_list': books_list,
-        'page': page
+        'books_list': [book_for_show],
+        'prev_page': prev_page,
+        'next_page': next_page,
     }
     return render(request, template, context)
