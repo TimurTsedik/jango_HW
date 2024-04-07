@@ -10,7 +10,7 @@
         <div class="row">
             {% for book in books_list %}
             <div class="book col-md-4">
-                <h2>{{book.book_name}}</h2>
+                <h2><a href="/books/{{book.book_pub_date}}">{{book.book_name}}</a></h2>
                 <p>Автор: {{book.book_author}}</p>
                 <p>Дата публикации: {{book.book_pub_date}}</p>
             </div>

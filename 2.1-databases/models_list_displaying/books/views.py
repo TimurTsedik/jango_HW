@@ -10,7 +10,7 @@ def books_view(request):
     # template = 'base.html'
     # context = {}
     # return render(request, template, context)
-    book_objects = Book.objects.all()
+    book_objects = Book.objects.order_by('pub_date')
     books_list = []
     for book in book_objects:
         books_list.append({
