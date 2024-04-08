@@ -21,10 +21,11 @@ DATA = {
 
 def foodRecipes(request, dish):
     servings = int(request.GET.get('servings', 1))
+    dishes_local = {}
     for key, value in DATA[dish].items():
-        DATA[dish][key] = round(value * servings, 2)
+        dishes_local[key] = round(value * servings, 2)
     context = {
-        'recipe': DATA[dish],
+        'recipe': dishes_local,
         'servings': servings,
         'dish': dish
     }
