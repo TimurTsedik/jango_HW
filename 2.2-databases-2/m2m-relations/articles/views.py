@@ -6,8 +6,8 @@ from articles.models import Article, Scope
 def articles_list(request):
     template = 'articles/news.html'
     articles = Article.objects.all()
-    # ordering = '-published_at'
-    # articles.order_by(ordering)
+    ordering = '-published_at'
+    articles.order_by(ordering)
     context = {
         'object_list': articles,
     }
