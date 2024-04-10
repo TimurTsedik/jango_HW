@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
 
-from .models import Article, Scope
+from .models import Article, Scope, Tag
 
 
 class ScopeInlineFormset(BaseInlineFormSet):
@@ -19,13 +19,22 @@ class ScopeInlineFormset(BaseInlineFormSet):
             raise ValidationError('Укажите основной раздел')
         return super().clean()
 
+
 class ScopeInline(admin.TabularInline):
-    model = Scope.articles.through
+    model = Scope
+
 
 @admin.register(Scope)
 class ScopeAdmin(admin.ModelAdmin):
     formset = ScopeInlineFormset
 
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [ScopeInline]
+
