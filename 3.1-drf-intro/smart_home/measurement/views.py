@@ -6,7 +6,7 @@ from rest_framework.response import Response as Response
 from rest_framework.views import APIView
 
 from .models import Sensors, Measurements
-from .serializers import SensorsSerializer, MeasurementSerializer
+from .serializers import SensorsSerializer, MeasurementSerializer, MeasurementSerializerAdd
 
 
 # @api_view(['GET', 'POST'])
@@ -40,7 +40,7 @@ class MeasurementView(APIView):
         sensor = Sensors.objects.get(id=sensor_id)
         measurement = Measurements.objects.create(sensor_id=sensor, temperature=float(temp_value))
         measurement.save()
-        data = MeasurementSerializer(measurement).data
+        data = MeasurementSerializerAdd(measurement).data
         return Response(data)
 
     def get(self, request, sensor_id):
