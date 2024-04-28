@@ -20,6 +20,7 @@ class ProductViewSet(ModelViewSet):
 class StockViewSet(ModelViewSet):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
+    ordering_fields = ['id', 'address']
 
     # при необходимости добавьте параметры фильтрации
     def get_queryset(self):
