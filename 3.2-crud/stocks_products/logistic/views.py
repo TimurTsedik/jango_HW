@@ -3,7 +3,6 @@ from rest_framework.filters import SearchFilter
 from rest_framework.filters import OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 
-
 from .models import Product, Stock
 from .serializers import ProductSerializer, StockSerializer
 
@@ -14,15 +13,18 @@ class ProductViewSet(ModelViewSet):
     # при необходимости добавьте параметры фильтрации
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['title', 'description']
-    search_fields = ['title', 'description']
+    search_fields = ['title', ]
     ordering_fields = ['id', 'title']
 
 
 class StockViewSet(ModelViewSet):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
+
     # при необходимости добавьте параметры фильтрации
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['address', 'products']
-    search_fields = ['address', 'products']
-    ordering_fields = ['id', 'address', 'quantity']
+    def get_queryset(self):
+        queryset = Stock.objects.all()
+        product_name = self.request.query_params.get("products")
+        if product_name:
+            queryset = queryset.filter(products__title__icontains=product_name)
+        return queryset
