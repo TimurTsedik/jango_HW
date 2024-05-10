@@ -12,4 +12,4 @@ class AdvertisementFilter(filters.FilterSet):
     creator = filters.ModelChoiceFilter(queryset=User.objects.all())
     class Meta:
         model = Advertisement
-        fields = ['creator', 'created_at']
+        fields = ['creator', 'created_at', 'status']

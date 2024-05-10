@@ -40,12 +40,19 @@ Authorization: Token 58d1a902d3fb07df580c9dd80e68c41aa6a05c3a
 ###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=1
+GET {{baseUrl}}/advertisements/?creator=2
+Authorization: Token 58d1a902d3fb07df580c9dd80e68c41aa6a05c3a
 Content-Type: application/json
 
 ###
 
 # фильтрация по дате
 GET {{baseUrl}}/advertisements/?created_at_before=2024-05-03
+Authorization: Token 58d1a902d3fb07df580c9dd80e68c41aa6a05c3a
+Content-Type: application/json
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=DRAFT
 Authorization: Token 58d1a902d3fb07df580c9dd80e68c41aa6a05c3a
 Content-Type: application/json
